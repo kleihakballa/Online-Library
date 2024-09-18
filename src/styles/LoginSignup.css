@@ -1,0 +1,117 @@
+.bigContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 89vh;
+    background-color: #e9f7ef;
+}
+
+.logContainer {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.logContainer h2 {
+    margin-bottom: 1.5rem;
+    font-size: 1.75rem;
+    color: #28a745;
+}
+
+.alert {
+    margin-bottom: 1rem;
+    color: #dc3545;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #155724;
+}
+
+.form-control1 {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+    border: 1px solid #ced4da;
+    border-radius: 0.5rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-control1:focus {
+    border-color: #28a745;
+    box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+    outline: none;
+}
+
+.btn-primary1 {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #28a745;
+    border: none;
+    border-radius: 0.5rem;
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-primary1:hover {
+    background-color: #218838;
+    transform: translateY(-2px);
+}
+
+.btn-link1 {
+    margin-top: 1rem;
+    background: none;
+    border: none;
+    color: #28a745;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.btn-link1:hover {
+    color: #218838;
+}
+
+.btn-google {
+    margin-top: 1rem;
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-google:hover {
+    background-color: #218838;
+}
+
+.google-icon {
+    width: 20px;
+    height: 20px;
+    padding: 0px;
+    margin-right: 10px;
+    background-color: #ffffff;
+    border-radius: 5px;
+}
+

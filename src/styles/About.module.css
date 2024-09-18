@@ -1,0 +1,46 @@
+.container {
+    background-color: #f0f8f4;
+    padding: 20px;
+    border-radius: 10px;
+    height: 90vh;
+    box-shadow: 0 4px 8px rgba(0, 128, 0, 0.2);
+}
+
+.content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.heading {
+    color: #2e7d32;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.section {
+    margin-bottom: 30px;
+}
+
+.subheading {
+    color: #4caf50;
+    margin-bottom: 10px;
+}
+
+.text {
+    color: #2f4f4f;
+    line-height: 1.6;
+    font-size: 1rem;
+}
+
+.contactInfo {
+    color: #2f4f4f;
+}
+
+.contactInfo a {
+    color: #66bb6a;
+    text-decoration: none;
+}
+
+.contactInfo a:hover {
+    text-decoration: underline;
+}

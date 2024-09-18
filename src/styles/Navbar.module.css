@@ -1,0 +1,105 @@
+.navbar {
+    background-color: #23750f;
+    padding: 1rem 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 30px;
+}
+
+.navbar-brand {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    padding-right: 20px;
+    border: none;
+}
+
+.navbar-brand:hover {
+    color: #ffcc00;
+    text-decoration: none;
+}
+
+.navbar-nav {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-item {
+    margin-right: 1rem;
+}
+
+.nav-link {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    padding: 0.5rem;
+}
+
+.nav-link:hover {
+    color: #ffcc00;
+}
+
+.nav-link.active {
+    color: #ffcc00;
+    border-bottom: 2px solid #ffcc00;
+}
+
+.navbar-left {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-right {
+    display: flex;
+    align-items: center;
+    margin-left: 50rem;
+}
+
+.btn {
+    padding: 0.5rem 1.25rem;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 0.5rem;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-danger {
+    background-color: #dc5360;
+    border: none;
+    margin-left: 6.7rem;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+}
+
+.btn-success {
+    background-color: #28a745;
+    border: none;
+   margin-left: 7.5rem;
+
+}
+
+.btn-success:hover {
+    background-color: #218838;
+    text-decoration: none;
+    color: #acacac;
+}
