@@ -2,9 +2,18 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useHistory, useParams } from "react-router-dom";
 import styles from "../../styles/EditBook.module.css";
+import {useAuth} from "../context/authContext";
 
 const EditBook = () => {
   let history = useHistory();
+  const {isLoggedIn} = useAuth()
+
+  useEffect(() => {
+    if(!isLoggedIn){
+      history.push("/")
+    }
+  }, [isLoggedIn,history]);
+
   const { id } = useParams();
   const isValidDate = (date) =>{
     const today = new Date();
@@ -36,12 +45,12 @@ const EditBook = () => {
     if(!isValidDate(publicationDate)){
       return;
     }
-    await axios.put(`http://localhost:5000/api/books/update/${id}`, book);
+    await axios.put(`https://3r0ucmzjr9.execute-api.eu-west-3.amazonaws.com/dev/api/books/update/${id}`, book);
     history.push("/");
   };
 
   const loadBook = async () => {
-    const result = await axios.get(`http://localhost:5000/api/books/${id}`);
+    const result = await axios.get(`https://3r0ucmzjr9.execute-api.eu-west-3.amazonaws.com/dev/api/books/${id}`);
     setBook(result.data);
   };
 

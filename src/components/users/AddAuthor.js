@@ -1,13 +1,19 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import styles from "../../styles/AddBook.module.css";
 import {useAuth} from "../context/authContext";
 
 const AddAuthor = () => {
-
-
     let history = useHistory();
+    const {isLoggedIn} = useAuth()
+
+    useEffect(() => {
+        if(!isLoggedIn){
+            history.push("/")
+        }
+    }, [isLoggedIn,history]);
+
     const isValidDate = (date) =>{
         const today = new Date();
         const selectedDate = new Date(date);

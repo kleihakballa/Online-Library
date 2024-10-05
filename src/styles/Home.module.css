@@ -80,6 +80,7 @@ table tr td{
 .btn-info {
     background-color: #26a69a;
     color: #fff;
+    text-decoration: none;
 }
 
 .btn-info:hover {

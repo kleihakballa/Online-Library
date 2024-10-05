@@ -29,13 +29,28 @@
     font-size: 1.1rem;
     border: 2px solid #66bb6a;
     border-radius: 5px;
-    transition: border-color 0.3s;
+    background-color: #f0fdf4;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+
 }
 
 .input:focus,
 .select:focus {
     border-color: #2e7d32;
 }
+.input:hover {
+    background-color: #e0f7e0;
+    border-color: #45a049;
+}
+
+.input:focus {
+    outline: none;
+    border-color: #388e3c;
+    box-shadow: 0 0 5px rgba(72, 187, 120, 0.5);
+}
+
 
 .button {
     width: 100%;
@@ -52,3 +67,65 @@
 .button:hover {
     background-color: #2e7d32;
 }
+
+.uploadContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 40px 0;
+}
+
+.uploadButton {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.uploadButton:hover {
+    background-color: #218838;
+    transform: translateY(-1px);
+}
+
+.hiddenInput {
+    display: none;
+}
+
+.imagePreviewContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.imagePreview {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin: 10px;
+    border: 3px solid #28a745;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+.imagePreview:hover {
+    transform: scale(1.05);
+}
+
+.hidden{
+    display: none;
+}
+
+
+
+
+
+

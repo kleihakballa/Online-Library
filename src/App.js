@@ -19,8 +19,8 @@ import Book from "./components/users/User";
 import EditAuthors from "./components/users/EditAuthors";
 import Authors from "./components/users/Authors";
 import AddAuthor from "./components/users/AddAuthor";
-import Profile from "./components/pages/Profile";
-import ProfilePage from "./components/pages/Profile";
+
+
 
 function App(props) {
   return (

@@ -16,7 +16,8 @@ const Book = () => {
         genre: "",
         author: "",
         availableCopies: "",
-        bookType: ""
+        bookType: "",
+        photoUrl: "",
     });
 
     const [authorDetails, setAuthorDetails] = useState(null);
@@ -27,7 +28,7 @@ const Book = () => {
 
     const loadComments = async () => {
         try {
-            const res = await axios.get(`http://localhost:5000/api/books/${id}/comments`);
+            const res = await axios.get(`https://3r0ucmzjr9.execute-api.eu-west-3.amazonaws.com/dev/${id}/comments`);
             setCommentsList(res.data);
         } catch (err) {
             console.error("Error fetching comments:", err);
@@ -41,7 +42,7 @@ const Book = () => {
 
     const loadBook = async () => {
         try {
-            const res = await axios.get(`http://localhost:5000/api/books/${id}`);
+            const res = await axios.get(`https://3r0ucmzjr9.execute-api.eu-west-3.amazonaws.com/dev/api/books/${id}`);
             setBook(res.data);
         } catch (err) {
             console.error("Error fetching book data:", err);
@@ -52,7 +53,7 @@ const Book = () => {
 
     const loadAuthorDetails = async (authorId) => {
         try {
-            const res = await axios.get(`http://localhost:5000/api/authors/${authorId}`);
+            const res = await axios.get(`https://3r0ucmzjr9.execute-api.eu-west-3.amazonaws.com/dev/api/authors/${authorId}`);
             setAuthorDetails(res.data);
             setShowAuthorDetails(true);
         } catch (err) {
@@ -76,7 +77,7 @@ const Book = () => {
         e.preventDefault();
         if (comment) {
             try {
-                const res = await axios.post(`http://localhost:5000/api/books/${id}/comments`, {
+                const res = await axios.post(`https://3r0ucmzjr9.execute-api.eu-west-3.amazonaws.com/dev/api/books/${id}/comments`, {
                     text: comment
                 });
                 setCommentsList(res.data.comments);
@@ -89,7 +90,7 @@ const Book = () => {
 
     const handleCommentDelete = async (commentId) => {
         try {
-            await axios.delete(`http://localhost:5000/api/books/${id}/comments/${commentId}`);
+            await axios.delete(`https://3r0ucmzjr9.execute-api.eu-west-3.amazonaws.com/dev/api/books/${id}/comments/${commentId}`);
             setCommentsList(commentsList.filter(comment => comment._id !== commentId));
         } catch (err) {
             console.error("Error deleting comment:", err);
@@ -108,6 +109,7 @@ const Book = () => {
                 </Link>
                 <h1 className={styles['display-4']}>{book.title}</h1>
                 <hr />
+                {book.photoUrl && <img src={book.photoUrl} alt={book.title} className={styles.bookImage} />}
                 <ul className="list-group">
                     <li className="list-group-item">Title: {book.title}</li>
                     <li className="list-group-item">

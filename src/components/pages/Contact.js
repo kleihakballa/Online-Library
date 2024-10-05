@@ -32,7 +32,7 @@ const Contact = () => {
     const errors = validateForm();
     if (Object.keys(errors).length === 0) {
       try {
-        const response = await fetch('http://localhost:5000/contact', {
+        const response = await fetch('https://3r0ucmzjr9.execute-api.eu-west-3.amazonaws.com/dev/contact', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

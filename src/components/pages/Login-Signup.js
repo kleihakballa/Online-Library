@@ -5,6 +5,8 @@ import { useHistory } from "react-router-dom";
 import { useAuth } from "../context/authContext";
 import { GoogleButton } from "react-google-button";
 import Verify from "../layout/AuthCode";
+import {EyeOff,Eye} from "lucide-react";
+import ScaleLoader from "../layout/Loader"
 
 const LoginSignup = () => {
     let history = useHistory();
@@ -18,6 +20,8 @@ const LoginSignup = () => {
         name: ""
     });
     const [error, setError] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -25,10 +29,10 @@ const LoginSignup = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+        setLoading(true);
         if (!isLogin) {
             try {
-                const response = await axios.post('http://localhost:5000/api/token', { email: formData.email });
+                const response = await axios.post('https://3r0ucmzjr9.execute-api.eu-west-3.amazonaws.com/dev/api/token', { email: formData.email });
                 console.log("Verification token sent:", response.data);
                 setVerify(true);
             } catch (error) {
@@ -38,12 +42,14 @@ const LoginSignup = () => {
         } else {
             handleConfirm(e);
         }
+        setLoading(false);
     };
 
     const handleConfirm = async (e) => {
         e.preventDefault();
+        setLoading(true);
         setVerify(false);
-        const url = isLogin ? "http://localhost:5000/api/login" : "http://localhost:5000/api/signup";
+        const url = isLogin ? "https://3r0ucmzjr9.execute-api.eu-west-3.amazonaws.com/dev/api/login" : "https://3r0ucmzjr9.execute-api.eu-west-3.amazonaws.com/dev/api/signup";
         try {
             const response = await axios.post(url, { ...formData, token: verificationCode });
             login(response.data.token);
@@ -52,6 +58,7 @@ const LoginSignup = () => {
             console.error("Error during form submission", error);
             setError("Verification failed or signup error");
         }
+        setLoading(false);
     };
 
     const closeVerify = () =>{
@@ -63,6 +70,10 @@ const LoginSignup = () => {
         const isLoggedIn = !!localStorage.getItem("authToken");
         if (isLoggedIn) history.push("/");
     }, [history]);
+
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    }
 
     return (
         <div className="bigContainer">
@@ -92,15 +103,18 @@ const LoginSignup = () => {
                             onChange={handleChange}
                         />
                     </div>
-                    <div className="form-group">
+                    <div className="form-group password-group">
                         <label>Password</label>
                         <input
-                            type="password"
+                            type={showPassword ? "text" : "password"}
                             name="password"
                             className="form-control form-control1"
                             value={formData.password}
                             onChange={handleChange}
                         />
+                        <span className="password-icon" onClick={togglePasswordVisibility}>
+                                {showPassword ? <Eye /> : <EyeOff /> }
+                            </span>
                     </div>
                     <button type="submit" className="btn btn-primary1">
                         {isLogin ? "Login" : "Sign Up"}
@@ -113,8 +127,9 @@ const LoginSignup = () => {
                     {isLogin ? "Switch to Sign Up" : "Switch to Login"}
                 </button>
             </div>
-
-            {verify && !isLogin && (
+            {loading ? (
+                <ScaleLoader className='scale-loader'/>
+            ) : verify && !isLogin && (
                 <Verify
                     message="Enter the code"
                     onConfirm={handleConfirm}

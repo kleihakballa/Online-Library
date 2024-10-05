@@ -4,6 +4,7 @@
     align-items: center;
     height: 89vh;
     background-color: #e9f7ef;
+    overflow: hidden;
 }
 
 .logContainer {
@@ -114,4 +115,22 @@
     background-color: #ffffff;
     border-radius: 5px;
 }
+
+.password-group {
+    position: relative;
+}
+
+.password-icon {
+    position: absolute;
+    right: 10px;
+    top: 70%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.scale-loader {
+    margin: auto;
+    display: block;
+}
+
 

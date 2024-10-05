@@ -17,6 +17,8 @@ const Home = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
 
+  const headerImg = "https://library-photo.s3.eu-west-3.amazonaws.com/1727945890240_library1.jpg";
+
   useEffect(() => {
     if (view === "books") {
       loadBooks();
@@ -28,7 +30,7 @@ const Home = () => {
 
   const loadBooks = async () => {
     try {
-      const result = await axios.get("http://localhost:5000/api/books");
+      const result = await axios.get("https://3r0ucmzjr9.execute-api.eu-west-3.amazonaws.com/dev/api/books");
       setBooks(result.data);
     } catch (error) {
       console.error('Error fetching books:', error);
@@ -39,7 +41,7 @@ const Home = () => {
 
   const loadAuthors = async () => {
     try {
-      const result = await axios.get("http://localhost:5000/api/authors");
+      const result = await axios.get("https://3r0ucmzjr9.execute-api.eu-west-3.amazonaws.com/dev/api/authors");
       setAuthors(result.data);
     } catch (error) {
       console.error('Error fetching authors:', error);
@@ -50,7 +52,7 @@ const Home = () => {
 
   const fetchCounts = async () => {
     try {
-      const result = await axios.get("http://localhost:5000/api/stat");
+      const result = await axios.get("https://3r0ucmzjr9.execute-api.eu-west-3.amazonaws.com/dev/api/stat");
       setCounts(result.data);
     } catch (error) {
       console.error('Error fetching counts:', error);
@@ -66,11 +68,11 @@ const Home = () => {
     setShowModal(false);
     try {
       if (view === "books") {
-        await axios.delete(`http://localhost:5000/api/books/delete/${selectedId}`);
-        loadBooks();  // Refresh the books list
+        await axios.delete(`https://3r0ucmzjr9.execute-api.eu-west-3.amazonaws.com/dev/api/books/delete/${selectedId}`);
+        loadBooks();
       } else {
-        await axios.delete(`http://localhost:5000/api/authors/delete/${selectedId}`);
-        loadAuthors();  // Refresh the authors list
+        await axios.delete(`https://3r0ucmzjr9.execute-api.eu-west-3.amazonaws.com/dev/api/authors/delete/${selectedId}`);
+        loadAuthors();
       }
     } catch (error) {
       console.error("Error deleting item:", error);
@@ -84,7 +86,7 @@ const Home = () => {
   return (
       <div className={styles.container}>
         <div className={styles.headerImage}>
-          <img src="/library1.jpg" alt="Header Image" className={styles.headerImg}/>
+          <img src={headerImg} alt="Header Image" className={styles.headerImg}/>
         </div>
         <div className={styles['stats-flex']}>
           <div className={styles['stats-block']}>
@@ -95,12 +97,13 @@ const Home = () => {
             <img src="/author.png" alt="Authors"/>
             <p>Total Authors: {counts.authorCount}</p>
           </div>
-          <div className={styles['stats-block']}>
+          {isLoggedIn && (
+              <div className={styles['stats-block']}>
             <img src="/user-img.png" alt="Users"/>
             <p>Total Users: {counts.userCount}</p>
-          </div>
-        </div>
+          </div>)}
 
+        </div>
         <div className="py-4">
           <h1>{view === "books" ? "Books" : "Authors"}</h1>
           <button
