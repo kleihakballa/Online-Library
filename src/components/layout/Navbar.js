@@ -1,17 +1,8 @@
 import React from "react";
-import { Link, NavLink, useHistory } from "react-router-dom";
-import { useAuth } from "../context/authContext";
+import { Link, NavLink } from "react-router-dom";
 import styles from '../../styles/Navbar.module.css';
 
-const Navbar = () => {
-  let history = useHistory();
-  const { isLoggedIn, logout } = useAuth();
-
-  const handleLogout = () => {
-    logout();
-    history.push('/Login-Signup');
-  };
-
+const Navbar = ({ signOut, user }) => {
   return (
       <nav className={styles.navbar}>
         <div className={styles.container}>
@@ -35,20 +26,20 @@ const Navbar = () => {
                   Contact
                 </NavLink>
               </li>
-              {/*{isLoggedIn && (
+              {user && (
                   <li className={styles['nav-item']}>
                     <Link className={styles['nav-link']} to="/profile">
                       My Profile
                     </Link>
                   </li>
-              )}*/}
+              )}
             </ul>
           </div>
           <div className={styles['navbar-right']}>
-            {isLoggedIn ? (
-                <button className={`${styles.btn} ${styles['btn-danger']}`} onClick={handleLogout}>Logout</button>
+            {user ? (
+                <button className={`${styles.btn} ${styles['btn-danger']}`} onClick={signOut}>Sign Out</button>
             ) : (
-                <Link className={`${styles.btn} ${styles['btn-success']}`} to="/Login-Signup">Login</Link>
+                <Link className={`${styles.btn} ${styles['btn-success']}`} to="/login">Login</Link>
             )}
           </div>
         </div>

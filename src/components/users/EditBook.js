@@ -2,17 +2,17 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useHistory, useParams } from "react-router-dom";
 import styles from "../../styles/EditBook.module.css";
-import {useAuth} from "../context/authContext";
+import {useAuthenticator} from "@aws-amplify/ui-react";
 
 const EditBook = () => {
   let history = useHistory();
-  const {isLoggedIn} = useAuth()
+  const {user} = useAuthenticator((context) => [context.user]);
 
   useEffect(() => {
-    if(!isLoggedIn){
+    if(!user){
       history.push("/")
     }
-  }, [isLoggedIn,history]);
+  }, [user,history]);
 
   const { id } = useParams();
   const isValidDate = (date) =>{
@@ -45,12 +45,12 @@ const EditBook = () => {
     if(!isValidDate(publicationDate)){
       return;
     }
-    await axios.put(`https://3r0ucmzjr9.execute-api.eu-west-3.amazonaws.com/dev/api/books/update/${id}`, book);
+    await axios.put(` https://3r0ucmzjr9.execute-api.eu-west-3.amazonaws.com/dev/books/${id}`, book);
     history.push("/");
   };
 
   const loadBook = async () => {
-    const result = await axios.get(`https://3r0ucmzjr9.execute-api.eu-west-3.amazonaws.com/dev/api/books/${id}`);
+    const result = await axios.get(`https://3r0ucmzjr9.execute-api.eu-west-3.amazonaws.com/dev/books/${id}`);
     setBook(result.data);
   };
 

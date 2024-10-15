@@ -2,17 +2,17 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import styles from "../../styles/AddBook.module.css";
-import { useAuth } from "../context/authContext";
+import { useAuthenticator } from "@aws-amplify/ui-react";
 
 const AddBook = () => {
   let history = useHistory();
-  const { isLoggedIn } = useAuth();
+  const { user } = useAuthenticator((context) => [context.user]);
 
   useEffect(() => {
-    if (!isLoggedIn) {
+    if (!user) {
       history.push("/");
     }
-  }, [isLoggedIn, history]);
+  }, [user, history]);
 
   const isValidDate = (date) => {
     const today = new Date();
@@ -44,7 +44,7 @@ const AddBook = () => {
     if (selectedFile) {
       setPreviewUrl(URL.createObjectURL(selectedFile));
       try {
-        const response = await axios.post("https://3r0ucmzjr9.execute-api.eu-west-3.amazonaws.com/dev/api/books/getPresignedUrl", {
+        const response = await axios.post("https://3r0ucmzjr9.execute-api.eu-west-3.amazonaws.com/dev/presignedUrl", {
           fileName: selectedFile.name,
           fileType: selectedFile.type,
         }, {
@@ -84,19 +84,19 @@ const AddBook = () => {
     if (book.photo) {
       formData.append("photo", book.photo);
     }
-    console.log("Book data:", JSON.stringify({
-      title,
-      publicationDate,
-      genre,
-      authorName,
-      availableCopies,
-      bookType,
-      photo: book.photo
-    }));
+
     try {
-      const response = await axios.post("https://3r0ucmzjr9.execute-api.eu-west-3.amazonaws.com/dev/api/books/add", formData, {
+      console.log("User object:", user);
+      const token = user?.signInUserSession?.idToken?.jwtToken;
+      console.log("Token:", token);
+      if (!token) {
+        throw new Error("User is not authenticated");
+      }
+
+      const response = await axios.post("https://3r0ucmzjr9.execute-api.eu-west-3.amazonaws.com/dev/books", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
+          "Authorization": `Bearer ${token}`,
         },
       });
       console.log("Response data:", response.data);
@@ -114,7 +114,7 @@ const AddBook = () => {
 
   useEffect(() => {
     return () => {
-      if(previewUrl){
+      if (previewUrl) {
         URL.revokeObjectURL(previewUrl);
       }
     };
@@ -142,10 +142,11 @@ const AddBook = () => {
                   <div className={styles.imagePreviewContainer}>
                     <img
                         src={previewUrl}
+                        alt="Preview"
                         className={styles.imagePreview}
                     />
                   </div>
-              ) }
+              )}
             </div>
             <div className={styles.formGroup}>
               <input

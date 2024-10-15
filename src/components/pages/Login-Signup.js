@@ -3,7 +3,6 @@ import axios from "axios";
 import '../../styles/LoginSignup.css';
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../context/authContext";
-import { GoogleButton } from "react-google-button";
 import Verify from "../layout/AuthCode";
 import {EyeOff,Eye} from "lucide-react";
 import ScaleLoader from "../layout/Loader"

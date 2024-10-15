@@ -28,7 +28,7 @@ const Book = () => {
 
     const loadComments = async () => {
         try {
-            const res = await axios.get(`https://3r0ucmzjr9.execute-api.eu-west-3.amazonaws.com/dev/${id}/comments`);
+            const res = await axios.get(`https://3r0ucmzjr9.execute-api.eu-west-3.amazonaws.com/dev/books/${id}/comments`);
             setCommentsList(res.data);
         } catch (err) {
             console.error("Error fetching comments:", err);
@@ -42,7 +42,7 @@ const Book = () => {
 
     const loadBook = async () => {
         try {
-            const res = await axios.get(`https://3r0ucmzjr9.execute-api.eu-west-3.amazonaws.com/dev/api/books/${id}`);
+            const res = await axios.get(`https://3r0ucmzjr9.execute-api.eu-west-3.amazonaws.com/dev/books/${id}`);
             setBook(res.data);
         } catch (err) {
             console.error("Error fetching book data:", err);
@@ -53,7 +53,7 @@ const Book = () => {
 
     const loadAuthorDetails = async (authorId) => {
         try {
-            const res = await axios.get(`https://3r0ucmzjr9.execute-api.eu-west-3.amazonaws.com/dev/api/authors/${authorId}`);
+            const res = await axios.get(`https://3r0ucmzjr9.execute-api.eu-west-3.amazonaws.com/dev/authors/${authorId}`);
             setAuthorDetails(res.data);
             setShowAuthorDetails(true);
         } catch (err) {
@@ -77,7 +77,7 @@ const Book = () => {
         e.preventDefault();
         if (comment) {
             try {
-                const res = await axios.post(`https://3r0ucmzjr9.execute-api.eu-west-3.amazonaws.com/dev/api/books/${id}/comments`, {
+                const res = await axios.post(`https://3r0ucmzjr9.execute-api.eu-west-3.amazonaws.com/dev/books/${id}/comments`,{
                     text: comment
                 });
                 setCommentsList(res.data.comments);
@@ -90,7 +90,7 @@ const Book = () => {
 
     const handleCommentDelete = async (commentId) => {
         try {
-            await axios.delete(`https://3r0ucmzjr9.execute-api.eu-west-3.amazonaws.com/dev/api/books/${id}/comments/${commentId}`);
+            await axios.delete(`https://3r0ucmzjr9.execute-api.eu-west-3.amazonaws.com/dev/books/${id}/comments/${commentId}`);
             setCommentsList(commentsList.filter(comment => comment._id !== commentId));
         } catch (err) {
             console.error("Error deleting comment:", err);

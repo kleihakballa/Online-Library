@@ -22,7 +22,7 @@ const Authors = () => {
 
     const loadAuthor = async () => {
         try {
-            const res = await axios.get(`https://3r0ucmzjr9.execute-api.eu-west-3.amazonaws.com/dev/api/authors/${id}`);
+            const res = await axios.get(`https://3r0ucmzjr9.execute-api.eu-west-3.amazonaws.com/dev/authors/${id}`);
             setAuthor(res.data);
         } catch (err) {
             console.error("Error fetching author data:", err);

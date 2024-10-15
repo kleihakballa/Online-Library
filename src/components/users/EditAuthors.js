@@ -2,17 +2,17 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useHistory, useParams } from "react-router-dom";
 import styles from "../../styles/EditAuthors.module.css";
-import {useAuth} from "../context/authContext";
+import {useAuthenticator} from "@aws-amplify/ui-react";
 
 const EditAuthors = () => {
     let history = useHistory();
-    const {isLoggedIn} = useAuth()
+    const {user} = useAuthenticator((context) => [context.user]);
 
     useEffect(() => {
-        if(!isLoggedIn){
+        if(!user){
             history.push("/");
         }
-    }, [isLoggedIn,history]);
+    }, [user,history]);
 
     const { id } = useParams();
     const isValidDate = (date) =>{
@@ -42,12 +42,12 @@ const EditAuthors = () => {
         if(!isValidDate(birthDate)){
             return;
         }
-        await axios.put(`https://3r0ucmzjr9.execute-api.eu-west-3.amazonaws.com/dev/api/authors/update/${id}`, authors);
+        await axios.put(`https://3r0ucmzjr9.execute-api.eu-west-3.amazonaws.com/dev/authors/${id}}`, authors);
         history.push('/');
     }
 
     const loadAuthors = async () => {
-        const result = await axios(`https://3r0ucmzjr9.execute-api.eu-west-3.amazonaws.com/dev/api/authors/${id}`);
+        const result = await axios(`https://3r0ucmzjr9.execute-api.eu-west-3.amazonaws.com/dev/authors/${id}`);
         setAuthors(result.data);
     }
 

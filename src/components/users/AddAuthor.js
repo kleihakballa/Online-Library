@@ -2,17 +2,17 @@ import React, {useEffect, useState} from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import styles from "../../styles/AddBook.module.css";
-import {useAuth} from "../context/authContext";
+import {useAuthenticator} from "@aws-amplify/ui-react";
 
 const AddAuthor = () => {
     let history = useHistory();
-    const {isLoggedIn} = useAuth()
+    const {user} = useAuthenticator((context) => [context.user]);
 
     useEffect(() => {
-        if(!isLoggedIn){
+        if(!user){
             history.push("/")
         }
-    }, [isLoggedIn,history]);
+    }, [user,history]);
 
     const isValidDate = (date) =>{
         const today = new Date();
@@ -38,7 +38,7 @@ const AddAuthor = () => {
                 return;
             }
             try {
-                await axios.post("http://localhost:5000/api/authors/add", author, {
+                await axios.post("https://3r0ucmzjr9.execute-api.eu-west-3.amazonaws.com/dev/authors", author, {
                     headers: {
                         "Content-Type": "application/json"
                     }
